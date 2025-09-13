@@ -1,0 +1,27 @@
+# Ignore Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pkl
+
+# Ignore Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore virtual environment folders
+.venv/
+
+# Ignore IDE/editor configs
+.vscode/
+.idea/
+
+# Ignore data files (don’t commit raw or large artifacts)
+data/raw/
+data/artifacts/
+
+# Ignore figures (can regenerate)
+figures/
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
