@@ -1,11 +1,12 @@
 # clean_options.py
 import os
+import glob
 import pandas as pd
 import numpy as np
 from datetime import datetime
 
 # CONFIG
-RAW_PATH = "data/raw/SPY_options.csv"
+RAW_DIR = "data/raw"
 ARTIFACTS_DIR = "data/artifacts"
 os.makedirs(ARTIFACTS_DIR, exist_ok=True)
 
@@ -20,7 +21,12 @@ def compute_tau(expiry, trade_date):
 
 # Cleaning Script
 def clean_options():
-    df = pd.read_csv(RAW_PATH)
+    # Load ALL option snapshots
+    option_files = glob.glob(os.path.join(RAW_DIR, "SPY_options_*.csv"))
+    if not option_files:
+        raise FileNotFoundError("No SPY_options_*.csv files found in data/raw/")
+    
+    df = pd.concat([pd.read_csv(f) for f in option_files], ignore_index=True)
 
     # Basic preprocessing
     df["mid"] = (df["bid"] + df["ask"]) / 2
